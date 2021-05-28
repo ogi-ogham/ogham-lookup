@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Ogham Stone Search</title>
+	<link rel="stylesheet" href="css/vendor/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/vendor/bootstrap-tagsinput.css" />
+	<link rel="stylesheet" href="css/vendor/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/ogham.css" />
+</head>
+
+<body onload="initLoad();">
+	<div id="header">
+		<div id="header_pt1">&nbsp;&nbsp;Ogham Search</div>
+	</div>
+	<div id="filter">
+		<div id="div-count">
+			<h4><span id="span-count"></span><span id="span-loading"></span></h4>
+		</div>
+		<div class="heading">active filter</div>
+		<div id="div-keys"></div>
+		<div class="heading">filter label & identifier</div>
+		<div class="input-group">
+			<span class="input-group-addon" id="inp-search-span"><i class="fa fa-search" aria-hidden="true"></i></span>
+			<input id="inp-search" type="text" class="form-control" placeholder="enter search string" aria-describedby="sizing-addon1">
+		</div>
+		<div class="heading">filter keywords</div>
+		<!-- https://webdesignerwall.com/wdw-snippet/accordion-with-bootstrap-3-and-without-js -->
+		<div class="panel-group panel-group-accordion" id="accordion">
+			<!-- feature properties -->
+			<div class="panel panel-default">
+				<a class="accordion-toggle panel-title-header" data-toggle="collapse" data-parent="#accordion" href="#collapse-obsitem">
+					<div class="panel-heading panel-feature-property">Stone Type</div>
+				</a>
+				<div id="collapse-obsitem" class="panel-collapse collapse">
+					<div class="panel-body panel-body-content" id="panel-type"></div>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<a class="accordion-toggle panel-title-header" data-toggle="collapse" data-parent="#accordion" href="#collapse-featurestatement">
+					<div class="panel-heading panel-feature-property">Sites</div>
+				</a>
+				<div id="collapse-featurestatement" class="panel-collapse collapse">
+					<div class="panel-body panel-body-content" id="panel-site"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="content"></div>
+	<div id="footer">
+		<center style="padding-top:30px;font-size:11px;"><b>CC BY 4.0 | Florian Thiery<br>Irish ᚑᚌᚆᚐᚋ Stones in the Wikimedia Universe is funded
+				by Wikimedia Deutschland | Fellow-Programm Freies Wissen | <a href="#">Impressum</a> | <a href="#">Datenschutz</a></center>
+	</div>
+
+	<!-- vendor -->
+	<script src="js/vendor/jquery-3.1.1.min.js"></script>
+	<script src="js/vendor/bootstrap334.min.js"></script>
+	<script src="js/vendor/bootstrap-tagsinput.min.js"></script>
+	<!-- lookup -->
+	<script src="js/_services/RDF4J_Service.js"></script>
+	<!-- lookup -->
+	<script src="js/_lookup/generic.js"></script>
+	<script src="js/_lookup/ogham.js"></script>
+</body>
+
+</html>

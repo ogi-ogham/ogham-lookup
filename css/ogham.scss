@@ -1,0 +1,229 @@
+/* atom sass-autocompile https://atom.io/packages/sass-autocompile */
+
+$color1: rgba(98, 30, 75, .9);
+$color1_hex: #621e4b;
+$color2: rgba(137, 42, 105, .9);
+$color2_hex: #892a69;
+$color3: rgba(176, 54, 134, .9);
+$color4: rgba(63, 0, 31, .9);
+$color5: rgba(163, 57, 63, .9);
+$color6: rgba(226, 226, 226, .9);
+$color7: rgba(139, 0, 0, .9);
+$color_white: white;
+$color_white_rgba: rgba(255, 255, 255, .9);
+$color_white_rgba2: rgba(255, 255, 255, .8);
+$font: 'Ubuntu', sans-serif;
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+@font-face {
+    font-family: $font !important;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    background-color: $color_white;
+    height: 100%;
+    min-height: 100%;
+    font-family: $font !important;
+}
+
+.label-green {
+    background-color: $color1_hex;
+}
+
+.label-greenlight {
+    background-color: $color2_hex;
+}
+
+.thumbnail {
+    max-height: 300px !important;
+    max-width: 300px !important;
+}
+
+.thumbnail-t {
+    background-color: transparent !important;
+}
+
+.box-resultkacheln {
+    height: 385px !important;
+}
+
+.panel-object-property {
+    background-color: $color1 !important;
+}
+
+.panel-object-subproperty {
+    background-color: $color3 !important;
+}
+
+.panel-feature-property {
+    background-color: $color2 !important;
+}
+
+.panel-external-property {
+    background-color: $color4 !important;
+}
+
+.panel-group-accordion {
+    float: left !important;
+    width: 100% !important;
+}
+
+.panel-title-header {
+    color: $color_white !important;
+    font-size: 13px !important;
+    font-weight: 700;
+}
+
+.panel-body-content {
+    padding: 5px !important;
+    margin: 0px !important;
+}
+
+a.accordion-toggle {
+    text-decoration: none;
+}
+
+.panel-heading:hover {
+    filter: brightness(90%);
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.panel-item {
+    font-size: 12px;
+    padding: 5px;
+}
+
+.panel-item2 {
+    margin: 0px;
+    cursor: pointer;
+}
+
+#div-keys {
+    float: left;
+    width: 100%;
+    min-height: 1px;
+    border: 0px dotted $color1;
+    margin-bottom: 0px;
+}
+
+div.deletekey:hover {
+    cursor: pointer;
+    background-color: $color5;
+}
+
+#div-count {
+    float: left;
+    width: 100%;
+    height: auto;
+    border: none;
+    margin-bottom: 0px;
+}
+
+#filter {
+    float: left;
+    min-height: 500px;
+    padding: 15px;
+    background-color: $color_white_rgba;
+    width: 20%;
+    border: 1px dotted $color_white;
+}
+
+#header {
+    float: left;
+    height: 50px;
+    margin-bottom: 20px;
+    background-color: $color1;
+    width: 100%;
+}
+
+#header_pt1 {
+    float: left;
+    color: $color_white;
+    margin-top: 10px;
+}
+
+#span-count {
+    clear: both;
+    margin: 0px;
+    font-variant: small-caps !important;
+}
+
+#content {
+    float: left;
+    height: auto;
+    padding: 15px;
+    background-color: $color_white_rgba;
+    width: 80%;
+    border: 1px dotted $color_white;
+}
+
+#footer {
+    float: left;
+    height: 90px;
+    background-color: $color6;
+    width: 100%;
+}
+
+.box-object {
+    border: 1px dotted #256a44;
+    background-color: $color1;
+    color: white;
+}
+
+#span-count {
+    color: $color2;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    float: left;
+    width: 60%;
+}
+
+#span-loading {
+    color: $color7;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    float: left;
+    width: 40%;
+    font-variant: small-caps;
+    font-size: 18px;
+}
+
+.heading {
+    color: $color2 !important;
+    font-size: 12px;
+    font-variant: small-caps !important;
+    height: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    float: left;
+    width: 100%;
+}
+
+.box-header-div {
+    font-family: $font !important;
+}
+
+.list-resultkacheln {
+    width: calc(100% - 10px);
+    float: left;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 0px !important;
+    font-size: 14px;
+    color: $color1_hex;
+    line-height: 2.0em;
+    height: 235px;
+    border-bottom: 1px dotted $color1_hex;
+    background-color: $color_white_rgba2;
+    height: 55px !important;
+}
+
+div.list-resultkacheln:hover {
+    filter: brightness(95%);
+    cursor: pointer;
+}
