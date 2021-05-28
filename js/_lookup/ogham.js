@@ -1,7 +1,6 @@
 let initLoad = () => {
-    //console.log("sort", SORT);
     let query =
-        "SELECT DISTINCT ?stone ?label ?comment ?id ?siteLabel ?townland ?county WHERE { ?stone a oghamonto:OghamStone . ?stone rdfs:label ?label. ?stone rdfs:comment ?comment. ?stone oghamonto:exactMatch ?wd. ?stone dc:identifier ?id. ?stone oghamonto:disclosedAt ?site. ?site rdfs:label ?siteLabel. ?site oghamonto:label_townland ?townland. ?site oghamonto:label_county ?county. } ORDER BY ASC(?label)";
+        "SELECT DISTINCT ?stone ?label ?comment ?id ?siteLabel ?wd ?townland ?county ?country ?barony ?province WHERE { ?stone a oghamonto:OghamStone . ?stone rdfs:label ?label. ?stone rdfs:comment ?comment. ?stone oghamonto:exactMatch ?wd. ?stone dc:identifier ?id. ?stone oghamonto:disclosedAt ?site. ?site rdfs:label ?siteLabel. ?site oghamonto:label_townland ?townland. ?site oghamonto:label_county ?county. ?site oghamonto:label_county ?county. ?site oghamonto:label_province ?province. ?site oghamonto:label_barony ?barony. ?site oghamonto:label_country ?country. } ORDER BY ASC(?label)";
     jump("header");
     $("#span-count").html("loading...");
     $("#span-loading").html("loading...");
@@ -16,7 +15,7 @@ let showTiles = (data) => {
     objectidlist = [];
     for (item in bindings) {
         clickedKachel = bindings[item].stone.value;
-        searchResultsDiv += "<div class='box-resultkacheln box-object' id='" + bindings[item].stone.value + "' onclick='openDetail(\"" + bindings[item].stone.value + "\")'>";
+        searchResultsDiv += "<div class='box-resultkacheln box-object' id='" + bindings[item].stone.value + "' onclick='openDetail(\"" + bindings[item].wd.value + "\")'>";
         let name = "";
         let nameLength = 250;
         if (bindings[item].label.value.length > nameLength) {
@@ -24,8 +23,15 @@ let showTiles = (data) => {
         } else {
             name = bindings[item].label.value.replace("@en", "");
         }
-        searchResultsDiv += "<div class='box-header-div' style='text-align:center;'><b>" + name + "</b><br><span><i style='font-size:13px;'>" + bindings[item].id.value.replace("@en", "") + "</i> [" + bindings[item].comment.value.replace("@en",
-            "") + "]</span></div>";
+        searchResultsDiv += "<div class='box-header-div' style='text-align:center;'>";
+        searchResultsDiv += "<span style='width:100%;margin-bottom:10px;float:left;'><b>" + name + "</b></span>";
+        searchResultsDiv += "<span style='width:100%;margin-bottom:10px;float:left;'><i style='font-size:13px;'>" + bindings[item].comment.value.replace("@en", "") + "</i></span>";
+        searchResultsDiv += "<span style='width:100%;margin-bottom:10px;float:left;'><i style='font-size:13px;'>Identifier: " + bindings[item].id.value + " | Wikidata ID: " + bindings[item].wd.value.replace("http://www.wikidata.org/entity/", "") + "</i></span>";
+        searchResultsDiv += "<span style='width:100%;margin-bottom:10px;float:left;'><b>disclosed at</b></span>";
+        searchResultsDiv += "<span style='width:100%;margin-bottom:10px;float:left;'><i style='font-size:13px;'>" + bindings[item].siteLabel.value.replace("@en", "") + "</i></span>";
+        searchResultsDiv += "<span style='width:100%;margin-bottom:10px;float:left;'><i style='font-size:13px;'>" + bindings[item].townland.value.replace("@en", "") + ", Barony " + bindings[item].barony.value.replace("@en", "") + ", Co. " + bindings[item].county.value.replace("@en", "") + "</i></span>";
+        searchResultsDiv += "<span style='width:100%;margin-bottom:10px;float:left;'><i style='font-size:13px;'>" + bindings[item].province.value.replace("@en", "") + ", " + bindings[item].country.value.replace("@en", "") + "</i></span>";
+        searchResultsDiv += "</div>";
         searchResultsDiv += "</div>";
         objectidlist.push(bindings[item].stone.value.replace("http://lod.ogham.link/data/", "ogham:"));
         i++;
@@ -88,7 +94,7 @@ let selectKey = (key, label, attribute) => {
             "</div><div style='width:100%;font-weight:600;color:white;text-align:center;padding-top:7px;padding-bottom:7px;'>" + label.replace("@en", "") + "</span></div>");
     }
     let query =
-        "SELECT DISTINCT ?stone ?label ?comment ?id ?siteLabel ?townland ?county WHERE { ?stone a oghamonto:OghamStone . ?stone rdfs:label ?label. ?stone rdfs:comment ?comment. ?stone oghamonto:exactMatch ?wd. ?stone dc:identifier ?id. ?stone oghamonto:disclosedAt ?site. ?site rdfs:label ?siteLabel. ?site oghamonto:label_townland ?townland. ?site oghamonto:label_county ?county. ##value## } ORDER BY ASC(?label)";
+        "SELECT DISTINCT ?stone ?label ?comment ?id ?siteLabel ?wd ?townland ?county ?country ?barony ?province WHERE { ?stone a oghamonto:OghamStone . ?stone rdfs:label ?label. ?stone rdfs:comment ?comment. ?stone oghamonto:exactMatch ?wd. ?stone dc:identifier ?id. ?stone oghamonto:disclosedAt ?site. ?site rdfs:label ?siteLabel. ?site oghamonto:label_townland ?townland. ?site oghamonto:label_county ?county. ?site oghamonto:label_county ?county. ?site oghamonto:label_province ?province. ?site oghamonto:label_barony ?barony. ?site oghamonto:label_country ?country. ##value## } ORDER BY ASC(?label)";
     let attributes = "";
     let stone_type = false;
     let stone_site = false;
@@ -131,7 +137,7 @@ let deleteKey = (key) => {
     let el = document.getElementById("k-" + key);
     el.remove();
     let query =
-        "SELECT DISTINCT ?stone ?label ?comment ?id ?siteLabel ?townland ?county WHERE { ?stone a oghamonto:OghamStone . ?stone rdfs:label ?label. ?stone rdfs:comment ?comment. ?stone oghamonto:exactMatch ?wd. ?stone dc:identifier ?id. ?stone oghamonto:disclosedAt ?site. ?site rdfs:label ?siteLabel. ?site oghamonto:label_townland ?townland. ?site oghamonto:label_county ?county. ##value## } ORDER BY ASC(?label)";
+        "SELECT DISTINCT ?stone ?label ?comment ?id ?siteLabel ?wd ?townland ?county ?country ?barony ?province WHERE { ?stone a oghamonto:OghamStone . ?stone rdfs:label ?label. ?stone rdfs:comment ?comment. ?stone oghamonto:exactMatch ?wd. ?stone dc:identifier ?id. ?stone oghamonto:disclosedAt ?site. ?site rdfs:label ?siteLabel. ?site oghamonto:label_townland ?townland. ?site oghamonto:label_county ?county. ?site oghamonto:label_county ?county. ?site oghamonto:label_province ?province. ?site oghamonto:label_barony ?barony. ?site oghamonto:label_country ?country. ##value## } ORDER BY ASC(?label)";
     let attributes = "";
     let stone_type = false;
     let stone_site = false;

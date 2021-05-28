@@ -22,7 +22,7 @@ let ArrNoDupe = (a) => {
 };
 
 let openDetail = (id) => {
-    window.open('object.htm?id=' + id, '_blank');
+    window.open(id, '_blank');
 }
 
 $(".q_opt").change(function() {
