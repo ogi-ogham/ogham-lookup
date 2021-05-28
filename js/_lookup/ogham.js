@@ -108,18 +108,12 @@ let selectKey = (key, label, attribute) => {
             attributes += "FILTER EXISTS { ?stone oghamonto:disclosedAt" + keylist[attr][0] + ". } ";
         }
     }
-    if ($("#inp-search").val().length > -1) {
-        attributes += "FILTER(regex(?id, '" + $("#inp-search").val() + "', 'i') || regex(?label, '" + $("#inp-search").val() + "', 'i')) ";
-    }
     query = query.replace("##value##", attributes);
     jump("header");
     $("#span-count").html("loading...");
     $("#span-loading").html("loading...");
     console.log("query", query);
     RDF4J.query2(query, showTiles);
-    if ($("#inp-search").val().length > 0) {
-        $("#inp-search").focus();
-    }
 };
 
 let deleteKey = (key) => {
@@ -137,44 +131,29 @@ let deleteKey = (key) => {
     let el = document.getElementById("k-" + key);
     el.remove();
     let query =
-        "SELECT DISTINCT ?stone ?label ?comment ?id ?siteLabel ?townland ?county WHERE { ?stone a oghamonto:OghamStone . ?stone rdfs:label ?label. ?stone rdfs:comment ?comment. ?stone oghamonto:exactMatch ?wd. ?stone dc:identifier ?id. ?stone oghamonto:disclosedAt ?site. ?site rdfs:label ?siteLabel. ?site oghamonto:label_townland ?townland. ?site oghamonto:label_county ?county. ##value## } ORDER BY ASC(" +
-        SORT + ")";
+        "SELECT DISTINCT ?stone ?label ?comment ?id ?siteLabel ?townland ?county WHERE { ?stone a oghamonto:OghamStone . ?stone rdfs:label ?label. ?stone rdfs:comment ?comment. ?stone oghamonto:exactMatch ?wd. ?stone dc:identifier ?id. ?stone oghamonto:disclosedAt ?site. ?site rdfs:label ?siteLabel. ?site oghamonto:label_townland ?townland. ?site oghamonto:label_county ?county. ##value## } ORDER BY ASC(?label)";
     let attributes = "";
-    let featurestatement_bool = false;
-    let featureobsitem_bool = false;
+    let stone_type = false;
+    let stone_site = false;
     let keyindex = -1;
     for (attr in keylist) {
         keyindex++;
-        if (keylist[attr][2] === "feature-statement" && featurestatement_bool == false) {
-            featurestatement_bool = true;
-            attributes += "?interpretation crm:P67_refers_to ?argument_" + keyindex + ". ?argument_" + keyindex + " crm:P67_refers_to " + keylist[attr][0] + ". ";
-        } else if (keylist[attr][2] === "feature-statement" && featurestatement_bool == true) {
-            attributes += "FILTER EXISTS { ?interpretation crm:P67_refers_to ?argument_" + keyindex + ". ?argument_" + keyindex + " crm:P67_refers_to " + keylist[attr][0] + ". } ";
+        if (keylist[attr][2] === "stone-type" && stone_type == false) {
+            stone_type = true;
+            attributes += "?stone a " + keylist[attr][0] + ". ";
+        } else if (keylist[attr][2] === "stone-type" && stone_type == true) {
+            attributes += "FILTER EXISTS { ?stone a" + keylist[attr][0] + ". } ";
         }
-        if (keylist[attr][2] === "feature-obsitem" && featureobsitem_bool == false) {
-            featureobsitem_bool = true;
-            attributes += "?interpretation crm:P67_refers_to ?argument_" + keyindex + ". ?argument_" + keyindex + " crm:P67_refers_to ?obs1_" + keyindex + ". ?obs1_" + keyindex + " sci:O8_observed ?obs2_" + keyindex + ". ?obs2_" + keyindex +
-                " crm:P2:has_type " + keylist[attr][0] + ". "
-        } else if (keylist[attr][2] === "feature-obsitem" && featureobsitem_bool == true) {
-            attributes += "FILTER EXISTS { ?interpretation crm:P67_refers_to ?argument_" + keyindex + ". ?argument_" + keyindex + " crm:P67_refers_to ?obs1_" + keyindex + ". ?obs1_" + keyindex + " sci:O8_observed ?obs2_" + keyindex + ". ?obs2_" +
-                keyindex + " crm:P2:has_type " + keylist[attr][0] + ". } ";
+        if (keylist[attr][2] === "stone-site" && stone_site == false) {
+            stone_site = true;
+            attributes += "?stone oghamonto:disclosedAt " + keylist[attr][0] + ". ";
+        } else if (keylist[attr][2] === "feature-obsitem" && stone_site == true) {
+            attributes += "FILTER EXISTS { ?stone oghamonto:disclosedAt" + keylist[attr][0] + ". } ";
         }
-        //console.log(attributes);
-    }
-    if ($("#inp-search").val().length > -1) {
-        attributes += "FILTER(regex(?identifier, '" + $("#inp-search").val() + "', 'i') || regex(?label, '" + $("#inp-search").val() + "', 'i')) ";
     }
     query = query.replace("##value##", attributes);
     jump("header");
     $("#span-count").html("loading...");
     $("#span-loading").html("loading...");
-    if (keylist.length === 0 && $("#inp-search").val().length == 0) {
-        initLoad();
-    } else {
-        RDF4J.query2(query, showTiles);
-    }
-    if ($("#inp-search").val().length > -1) {
-        document.getElementById("inp-search").focus();
-        document.getElementById("inp-search").select();
-    }
+    RDF4J.query2(query, showTiles);
 };
