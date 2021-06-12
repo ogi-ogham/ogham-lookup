@@ -185,7 +185,7 @@ let loadMap = () => {
 
 let setMarker = (data) => {
     let bindings = data.results.bindings;
-    console.log(bindings);
+    var markers = L.markerClusterGroup();
     for (item in bindings) {
         let geom = bindings[item].geom.value;
         geom = geom.replace("POINT(", "").replace(")", "");
@@ -193,7 +193,11 @@ let setMarker = (data) => {
             console.log(bindings[item].label.value);
         } else {
             let splitgeom = geom.split(" ");
-            let marker = L.marker([splitgeom[1], splitgeom[0]]).addTo(mymap);
+            let marker = L.marker([splitgeom[1], splitgeom[0]]);
+            var popup = "a";
+            marker.bindPopup("<b>" + bindings[item].label.value.replace("@en", "") + "</b><br>" + bindings[item].sitelabel.value.replace("@en", "") + "</b><br><i>County " + bindings[item].county.value.replace("@en", "") + "</i>");
+            markers.addLayer(marker);
         }
     }
+    mymap.addLayer(markers);
 };
