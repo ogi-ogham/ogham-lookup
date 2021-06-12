@@ -163,3 +163,37 @@ let deleteKey = (key) => {
     $("#span-loading").html("loading...");
     RDF4J.query2(query, showTiles);
 };
+
+/* map things */
+
+var mymap;
+
+let loadMap = () => {
+    $("#content").html("");
+    $("#content").html("<div id='mapid'></div>");
+    mymap = L.map('mapid').setView([53.423889, -7.942222], 6);
+    L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        subdomains: 'abcd',
+        minZoom: 1,
+        maxZoom: 16,
+        ext: 'jpg'
+    }).addTo(mymap);
+    let query = "SELECT DISTINCT ?stone ?label ?site ?geom ?sitelabel ?county WHERE { ?stone a oghamonto:OghamStone. ?stone rdfs:label ?label. ?stone oghamonto:disclosedAt ?site. ?site oghamonto:representativePoint ?_geom. ?_geom geosparql:asWKT ?geom. ?site rdfs:label ?sitelabel. ?site oghamonto:label_county ?county. } ORDER BY ASC(?label)";
+    RDF4J.query2(query, setMarker);
+};
+
+let setMarker = (data) => {
+    let bindings = data.results.bindings;
+    console.log(bindings);
+    for (item in bindings) {
+        let geom = bindings[item].geom.value;
+        geom = geom.replace("POINT(", "").replace(")", "");
+        if (!geom.includes(" ")) {
+            console.log(bindings[item].label.value);
+        } else {
+            let splitgeom = geom.split(" ");
+            let marker = L.marker([splitgeom[1], splitgeom[0]]).addTo(mymap);
+        }
+    }
+};

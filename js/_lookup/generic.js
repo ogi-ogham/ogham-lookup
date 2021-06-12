@@ -28,5 +28,9 @@ let openDetail = (id) => {
 $(".q_sty").change(function() {
     let selValue = $("input:radio[name='optstyle']:checked").val();
     RESULT_STYLE = selValue;
-    console.log(RESULT_STYLE);
+    if (RESULT_STYLE.includes("map")) {
+        loadMap();
+    } else {
+        initLoad();
+    }
 });

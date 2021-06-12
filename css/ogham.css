@@ -6,6 +6,10 @@
   font-style: normal;
 }
 
+#mapid {
+  height: 800px;
+}
+
 body {
   background-color: white;
   height: 100%;

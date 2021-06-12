@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="css/vendor/font-awesome.min.css" />
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/ogham.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 </head>
 
 <body onload="initLoad();">
@@ -29,7 +30,7 @@
 				<input type="radio" name="optstyle" value="box" class="q_sty" checked><span style="color:#621e4b">boxes</span>
 			</label>
 			<label class="radio-inline">
-				<input type="radio" name="optstyle" value="list" class="q_sty"><span style="color:#621e4b">map</span>
+				<input type="radio" name="optstyle" value="map" class="q_sty"><span style="color:#621e4b">map</span>
 			</label>
 		</div>
 		<div class="heading">active filter</div>
@@ -56,7 +57,9 @@
 			</div>
 		</div>
 	</div>
-	<div id="content"></div>
+	<div id="content">
+		<div id="mapid"></div>
+	</div>
 	<div id="footer">
 		<center style="padding-top:30px;font-size:11px;"><b>CC BY 4.0 | Florian Thiery<br>Irish ᚑᚌᚆᚐᚋ Stones in the Wikimedia Universe is funded
 				by Wikimedia Deutschland | Fellow-Programm Freies Wissen | <a href="#">Impressum</a> | <a href="#">Datenschutz</a></center>
@@ -66,6 +69,7 @@
 	<script src="js/vendor/jquery-3.1.1.min.js"></script>
 	<script src="js/vendor/bootstrap334.min.js"></script>
 	<script src="js/vendor/bootstrap-tagsinput.min.js"></script>
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 	<!-- lookup -->
 	<script src="js/_services/RDF4J_Service.js"></script>
 	<!-- lookup -->
