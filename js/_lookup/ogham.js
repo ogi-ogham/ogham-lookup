@@ -193,8 +193,28 @@ let setMarker = (data) => {
             console.log(bindings[item].label.value);
         } else {
             let splitgeom = geom.split(" ");
-            let marker = L.marker([splitgeom[1], splitgeom[0]]);
-            var popup = "a";
+            let marker;
+            if (bindings[item].label.value.includes("CIIC")) {
+                marker = L.marker([splitgeom[1], splitgeom[0]], {
+                    icon: greenIcon
+                });
+            } else if (bindings[item].label.value.includes("CISP")) {
+                marker = L.marker([splitgeom[1], splitgeom[0]], {
+                    icon: orangeIcon
+                });
+            } else if (bindings[item].label.value.includes("3D")) {
+                marker = L.marker([splitgeom[1], splitgeom[0]], {
+                    icon: violetIcon
+                });
+            } else if (bindings[item].label.value.includes("Squirrel")) {
+                marker = L.marker([splitgeom[1], splitgeom[0]], {
+                    icon: goldIcon
+                });
+            } else {
+                marker = L.marker([splitgeom[1], splitgeom[0]], {
+                    icon: blackIcon
+                });
+            }
             marker.bindPopup("<b>" + bindings[item].label.value.replace("@en", "") + "</b><br>" + bindings[item].sitelabel.value.replace("@en", "") + "</b><br><i>County " + bindings[item].county.value.replace("@en", "") + "</i>");
             markers.addLayer(marker);
         }
