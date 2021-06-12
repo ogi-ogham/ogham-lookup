@@ -25,18 +25,8 @@ let openDetail = (id) => {
     window.open(id, '_blank');
 }
 
-$(".q_opt").change(function() {
-    let selValue = $("input:radio[name='optsort']:checked").val();
-    SORT = selValue;
-    selectKey("", "", "substr");
-});
-
 $(".q_sty").change(function() {
     let selValue = $("input:radio[name='optstyle']:checked").val();
     RESULT_STYLE = selValue;
-    selectKey("", "", "substr");
+    console.log(RESULT_STYLE);
 });
-
-$("#inp-search").keyup(function() {
-    selectKey($("#inp-search").val(), $("#inp-search").val(), "substr");
-}).trigger("change");
